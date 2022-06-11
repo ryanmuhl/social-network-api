@@ -36,4 +36,5 @@ const reactionSchema = new Schema(
     }
 )
 
+//Export reactionSchema
 module.exports = reactionSchema;

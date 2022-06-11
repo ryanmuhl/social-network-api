@@ -2,7 +2,7 @@
 const {Schema, model} = require('mongoose');
 
 //require reaction Schema
-const reactionSchema = require('./Reaction')
+const ReactionsSchema = require('./Reaction')
 
 // Schema for Thoughts
 const ThoughtsSchema = new Schema(
@@ -23,7 +23,7 @@ const ThoughtsSchema = new Schema(
         required: true
     },
     // Array of nested documents
-    reactions: [reactionSchema]
+    reactions: [ReactionsSchema]
     },
     {
     toJSON: {
@@ -36,7 +36,7 @@ const ThoughtsSchema = new Schema(
 
 //Create virtual called reactionCount that retrieves the length of the thoughts
 //reactions array field on query
-ThoughtsSchema.virtual('reactioncCount').get(function(){
+ThoughtsSchema.virtual('reactionCount').get(function(){
     return this.reactions.length
 })
 
