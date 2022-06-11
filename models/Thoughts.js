@@ -14,14 +14,14 @@ const ThoughtsSchema = new Schema(
     createdAt: {
         type: Date,
         default: Date.now,
-        // Getter Method ???????
+        get: timestamp => dateFormat (timestamp)
     },
     username: {
         type: String,
         required: true
     },
-    // Array of nested documents ?????
-    reactions: []
+    // Array of nested documents
+    reactions: [reactionSchema]
     },
     {
     toJSON: {
