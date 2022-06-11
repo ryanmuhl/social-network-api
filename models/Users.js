@@ -1,6 +1,7 @@
 //Require Mongoose
 const {Schema, model} = require('mongoose');
 
+//Schema for User
 const UserSchema = new Schema(
     {
         username: {
@@ -38,12 +39,13 @@ const UserSchema = new Schema(
     }
 )
 
-// get total count of friends
+//Create virtual called friendCount that retrieves the length of 
+//the user's friends array field on query
 UserSchema.virtual('friendCount').get(function() {
     return this.friends.length;
 })
 
-// create the Users model using the Users Schema
+// create the Users model
 const Users = model('Users', UserSchema);
 
 // Export Users module
