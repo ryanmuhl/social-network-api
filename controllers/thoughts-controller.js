@@ -4,20 +4,25 @@ const {Thoughts, Users} = require('../models');
 //Thoughts Controller
 const thoughtsController = {
 
-    // Create new thought
-    createThoughts({params, body}, res) {
+    // Create Thought associated with user ID
+    createThoughts({ body }, res) {
         Thoughts.create(body)
-        .then(({_id}) => {
-            return Users.findOneAndUpdate({ _id: params.userId}, {$push: {thoughts: _id}}, {new: true});
+        .then(dbThoughtData => {
+            Users.findOneAndUpdate(
+                { _id: body.userId },
+                { $push: { thoughts: dbThoughtData._id } },
+                { new: true }
+            )
+            .then(dbUserData => {
+                if (!dbUserData) {
+                    res.status(404).json({ message: 'No thoughts associated with this ID' });
+                    return;
+                }
+                res.json(dbUserData);
+            })
+            .catch(err => res.json(err));
         })
-        .then(dbThoughtsData => {
-            if(!dbThoughtsData) {
-                res.status(404).json({message: 'No Thoughts associated with this ID'});
-                return;
-            }
-            res.json(dbThoughtsData)
-        })
-        .catch(err => res.json(err)); 
+        .catch(err => res.status(400).json(err));
     },
 
       // Get all Thoughts
@@ -31,6 +36,19 @@ const thoughtsController = {
             res.status(500).json(err);
         });
     },
+
+     // Delete thought by ID
+  deleteThought({ params }, res) {
+    Thoughts.findOneAndDelete({ _id: params.id })
+      .then((dbThoughtData) => {
+        if (!dbThoughtData) {
+          res.status(404).json({ message: "No thought associated with this ID" });
+          return;
+        }
+        res.json(dbThoughtData);
+      })
+      .catch((err) => res.status(400).json(err));
+  },
 
     
 

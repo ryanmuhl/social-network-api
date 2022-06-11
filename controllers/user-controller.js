@@ -5,14 +5,14 @@ const {Users} = require('../models')
 //User Controller
 const userController = {
 
-// Create a new User
+// Create User
   createUsers({body}, res) {
     Users.create(body)
     .then(dbUserData => res.json(dbUserData))
     .catch(err => res.status(400).json(err));
 },
 
-//get all users
+//Get all Users
 getAllUsers(req, res) {
     Users.find()
     .select('-__v')
