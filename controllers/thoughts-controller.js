@@ -25,7 +25,7 @@ const thoughtsController = {
         .catch(err => res.status(400).json(err));
     },
 
-      // Get all Thoughts
+      //Get all Thoughts
       getAllThoughts(req,res) {
         Thoughts.find({})
         .populate({path: 'reactions', select: '-__v'})
@@ -36,6 +36,36 @@ const thoughtsController = {
             res.status(500).json(err);
         });
     },
+
+// get one thought by it's id
+getThoughtById({ params }, res) {
+  Thoughts.findOne({ _id: params.id })
+    .then((dbThoughtData) => {
+      // if no thought is found
+      if (!dbThoughtData) {
+        res.status(404).json({ message: "No thought associated with this ID" });
+        return;
+      }
+      res.json(dbThoughtData);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+},
+
+   //Update Thought by ID
+  updateThought({ params, body }, res) {
+    Thoughts.findOneAndUpdate({ _id: params.id }, body, { new: true })
+      .then((dbThoughtData) => {
+        if (!dbThoughtData) {
+          res.status(404).json({ message: "No thought associated with this ID" });
+          return;
+        }
+        res.json(dbThoughtData);
+      })
+      .catch((err) => res.status(400).json(err));
+  },
 
      // Delete thought by ID
   deleteThought({ params }, res) {

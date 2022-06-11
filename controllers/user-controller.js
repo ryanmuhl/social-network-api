@@ -44,6 +44,32 @@ getAllUsers(req, res) {
         })
     },
 
+     // Update User by their ID
+  updateUser({ params, body }, res) {
+    Users.findOneAndUpdate({ _id: params.id }, body, { new: true })
+      .then((dbUserData) => {
+        if (!dbUserData) {
+          res.status(404).json({ message: "No user associated with this ID" });
+          return;
+        }
+        res.json(dbUserData);
+      })
+      .catch((err) => res.status(400).json(err));
+  },
+
+    // Delete User by their ID
+    deleteUser({ params }, res) {
+        Users.findOneAndDelete({ _id: params.id })
+          .then((dbUserData) => {
+            if (!dbUserData) {
+              res.status(404).json({ message: "No user associated with this ID" });
+              return;
+            }
+            res.json(dbUserData);
+          })
+          .catch((err) => res.status(400).json(err));
+      },
+
 }
 
 //Export userController

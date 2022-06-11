@@ -5,16 +5,18 @@ const {
     getAllUsers,
     createUsers,
     getUsersById,
+    updateUser,
+    deleteUser,
 
 } = require ('../../controllers/user-controller');
 
 
-//get all users and create user api/users (get and post)
+//GET all Users and Create User api/users (GET POST)
 //api/user
 router.route('/').get(getAllUsers).post(createUsers)
 
-//get user by id (get)
+//Get User by ID, Edit User by ID, Delete User by ID(GET PUT DELETE)
 //api/user/id
-router.route('/:id').get(getUsersById);
+router.route('/:id').get(getUsersById).put(updateUser).delete(deleteUser);
 
 module.exports = router;
