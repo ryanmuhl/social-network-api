@@ -15,7 +15,7 @@ const thoughtsController = {
         )
           .then(dbUserData => {
             if (!dbUserData) {
-              res.status(404).json({ message: 'No thoughts associated with this ID' });
+              res.status(404).json({ message: 'No ID found' });
               return;
             }
             res.json(dbUserData);
@@ -43,7 +43,7 @@ const thoughtsController = {
       .then((dbThoughtData) => {
         // if no thought is found
         if (!dbThoughtData) {
-          res.status(404).json({ message: "No thought associated with this ID" });
+          res.status(404).json({ message: 'No thought associated with this ID' });
           return;
         }
         res.json(dbThoughtData);
@@ -59,7 +59,7 @@ const thoughtsController = {
     Thoughts.findOneAndUpdate({ _id: params.thoughtId }, body, { new: true })
       .then((dbThoughtData) => {
         if (!dbThoughtData) {
-          res.status(404).json({ message: "No thought associated with this ID" });
+          res.status(404).json({ message: 'No thought associated with this ID'});
           return;
         }
         res.json(dbThoughtData);
@@ -72,7 +72,7 @@ const thoughtsController = {
     Thoughts.findOneAndDelete({ _id: params.thoughtId })
       .then((dbThoughtData) => {
         if (!dbThoughtData) {
-          res.status(404).json({ message: "No thought associated with this ID" });
+          res.status(404).json({ message: 'No ID found' });
           return;
         }
         res.json(dbThoughtData);
@@ -80,7 +80,40 @@ const thoughtsController = {
       .catch((err) => res.status(400).json(err));
   },
 
+  //Create Reaction associated with Thought ID
+  createReaction({params, body}, res) {
+    Thoughts.findOneAndUpdate(
+      {_id: params.thoughtId}, 
+      {$push: {reactions: body}}, 
+      {new: true, runValidators: true})
+    .populate({path: 'reactions', select: '-__v'})
+    .select('-__v')
+    .then(dbThoughtData => {
+        if (!dbThoughtData) {
+            res.status(404).json({message: 'No ID found'});
+            return;
+        }
+        res.json(dbThoughtData);
+    })
+    .catch(err => res.status(400).json(err))
+},
 
+//Delete Reaction associated with Thought ID
+deleteReaction({ params }, res) {
+  Thoughts.findOneAndUpdate(
+    { _id: params.thoughtId },
+    { $pull: { reactions: { reactionId: params.reactionId } } },
+    { new: true }
+  )
+    .then(dbThoughtData => {
+      if (!dbThoughtData) {
+        res.status(404).json({ message: 'No ID found'});
+        return;
+      }
+     res.json(dbThoughtData);
+    })
+    .catch(err => res.json(err));
+}
 
 }
 
