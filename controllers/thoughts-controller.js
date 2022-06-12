@@ -39,7 +39,7 @@ const thoughtsController = {
 
 // get one thought by it's id
 getThoughtById({ params }, res) {
-  Thoughts.findOne({ _id: params.id })
+  Thoughts.findOne({ _id: params.thoughtId })
     .then((dbThoughtData) => {
       // if no thought is found
       if (!dbThoughtData) {
@@ -56,7 +56,7 @@ getThoughtById({ params }, res) {
 
    //Update Thought by ID
   updateThought({ params, body }, res) {
-    Thoughts.findOneAndUpdate({ _id: params.id }, body, { new: true })
+    Thoughts.findOneAndUpdate({ _id: params.thoughtId }, body, { new: true })
       .then((dbThoughtData) => {
         if (!dbThoughtData) {
           res.status(404).json({ message: "No thought associated with this ID" });
@@ -69,7 +69,7 @@ getThoughtById({ params }, res) {
 
      // Delete thought by ID
   deleteThought({ params }, res) {
-    Thoughts.findOneAndDelete({ _id: params.id })
+    Thoughts.findOneAndDelete({ _id: params.thoughtId })
       .then((dbThoughtData) => {
         if (!dbThoughtData) {
           res.status(404).json({ message: "No thought associated with this ID" });
