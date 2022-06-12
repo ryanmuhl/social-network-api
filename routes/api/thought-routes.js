@@ -2,13 +2,13 @@
 const router = require('express').Router();
 
 
-const { 
-    getAllThoughts, 
+const {
+    getAllThoughts,
     createThoughts,
     updateThought,
     deleteThought,
     getThoughtById,
-    
+
 
 } = require('../../controllers/thoughts-controller');
 

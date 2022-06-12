@@ -1,5 +1,5 @@
 //Require Mongoose
-const {Schema, model} = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 //Schema for User
 const UsersSchema = new Schema(
@@ -17,7 +17,7 @@ const UsersSchema = new Schema(
             required: true,
             match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/]
         },
-        
+
         thoughts: [{
             type: Schema.Types.ObjectId,
             ref: 'Thoughts'
@@ -28,7 +28,7 @@ const UsersSchema = new Schema(
             ref: 'Users'
         }]
 
-    }, 
+    },
 
     {
         toJSON: {
@@ -41,7 +41,7 @@ const UsersSchema = new Schema(
 
 //Create virtual called friendCount that retrieves the length of 
 //the user's friends array field on query
-UsersSchema.virtual('friendCount').get(function() {
+UsersSchema.virtual('friendCount').get(function () {
     return this.friends.length;
 })
 
