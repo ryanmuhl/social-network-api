@@ -41,7 +41,6 @@ const thoughtsController = {
   getThoughtById({ params }, res) {
     Thoughts.findOne({ _id: params.thoughtId })
       .then((dbThoughtData) => {
-        // if no thought is found
         if (!dbThoughtData) {
           res.status(404).json({ message: 'No thought associated with this ID' });
           return;
