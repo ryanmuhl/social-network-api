@@ -94,13 +94,13 @@ const userController = {
       { $pull: { friends: params.friendId } },
       { new: true }
     )
-    .then(dbUserData => {
-      if (!dbUserData) {
-        res.status(404).json({ message: 'No user associated with this ID' });
-        return;
-      }
-      res.json(dbUserData);
-    })
+      .then(dbUserData => {
+        if (!dbUserData) {
+          res.status(404).json({ message: 'No user associated with this ID' });
+          return;
+        }
+        res.json(dbUserData);
+      })
       .catch(err => res.json(err));
   }
 
