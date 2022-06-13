@@ -36,6 +36,19 @@ https://github.com/ryanmuhl/social-network-api
 
 ## Screencastify Links
 
+### Get Routes All Users/All Thoughts/User by ID/Thoughts by ID
+https://drive.google.com/file/d/1Kdb-HchQEY3w0B2beWzEiVzZvStKnzLh/view
+
+### Post/Put/Delete Routes for User
+https://drive.google.com/file/d/1pjeH0MA2COFZi-DY2WIpFqvxKWFdjDYh/view
+
+### Post/Put/Delete Routes for Thoughts
+https://drive.google.com/file/d/1HrJ9TWZrBAe95D3WbagUL_MekPzqj2j0/view
+
+### Post/Delete Friends/Reactions
+https://drive.google.com/file/d/1WHjoqS169ff7DsHtz79CUqtNgU6lDKBv/view
+
+
 
 ## Contributions
 Created/Designed by:
